@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from myapp.models import *
+
 
 # Create your views here.
 def details(request):
@@ -10,7 +12,20 @@ def blog(request):
     return render(request, 'blog.html')
 
 def home(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        mycontact = contact(
+            name = request.POST['name'],
+            email = request.POST['email'],
+            subject = request.POST['subject'],
+            message = request.POST['message']
+
+        )
+        mycontact.save()
+        return render(request, 'index.html')
+    
+    else:
+        return render(request, 'index.html')
+
 
 def portfolio(request):
     return render(request, 'portfolio-details.html')
@@ -20,3 +35,5 @@ def services(request):
 
 def starter(request):
     return render(request, 'starter-page.html')
+
+
