@@ -36,4 +36,13 @@ def services(request):
 def starter(request):
     return render(request, 'starter-page.html')
 
+def show(request):
+    all = contact.objects.all()
+    return render(request, 'show.html', {'all': all})
+
+
+
+
+
+
 
