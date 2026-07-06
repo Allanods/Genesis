@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from myapp.models import *
 
 
@@ -39,6 +39,26 @@ def starter(request):
 def show(request):
     all = contact.objects.all()
     return render(request, 'show.html', {'all': all})
+
+
+def delete(request,id):
+    mycontact = contact.objects.get(id = id)
+    mycontact.delete()
+    return redirect('/show')
+
+
+def edit(request,id):
+    editappointment = get_object_or_404(contact, id = id)
+
+    if request.method == 'post':
+        editappointment.name = request.Post.get('name')
+        editappointment.email = request.Post.get('email')
+        editappointment.subject = request.Post.get('subject')
+        editappointment.message = request.Post.get('message')
+        editappointment.save()
+        return redirect('/show')
+    else:
+        return render(request, 'edit.html', {'editappointment':editappointment})
 
 
 
