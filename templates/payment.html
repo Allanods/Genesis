@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Pesa Express Payment</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#0A7E3E,#1DB954);
+            padding:20px;
+        }
+
+        .container{
+            width:420px;
+            background:#fff;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 15px 40px rgba(0,0,0,.2);
+        }
+
+        .header{
+            background:#0A7E3E;
+            text-align:center;
+            padding:30px 25px;
+        }
+
+        .logo{
+            width:220px;
+            background:white;
+            padding:10px;
+            border-radius:12px;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+        }
+
+        .header h2{
+            color:white;
+            margin-top:20px;
+            font-size:28px;
+        }
+
+        .header p{
+            color:#d9f7e5;
+            margin-top:8px;
+            font-size:15px;
+        }
+
+        .content{
+            padding:30px;
+        }
+
+        label{
+            display:block;
+            font-weight:600;
+            margin-bottom:8px;
+            color:#444;
+        }
+
+        .input-box{
+            position:relative;
+            margin-bottom:22px;
+        }
+
+        .input-box i{
+            position:absolute;
+            left:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#0A7E3E;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:14px 15px 14px 45px;
+            border:1px solid #ccc;
+            border-radius:10px;
+            font-size:16px;
+            transition:.3s;
+        }
+
+        .input-box input:focus{
+            outline:none;
+            border-color:#0A7E3E;
+            box-shadow:0 0 8px rgba(10,126,62,.25);
+        }
+
+        input[readonly]{
+            background:#f3f3f3;
+        }
+
+        button{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:10px;
+            background:#0A7E3E;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            background:#086633;
+            transform:translateY(-2px);
+        }
+
+        .footer{
+            background:#fafafa;
+            padding:20px;
+            text-align:center;
+            color:#666;
+            font-size:14px;
+            border-top:1px solid #eee;
+        }
+
+        @media(max-width:480px){
+
+            .container{
+                width:100%;
+            }
+
+            .logo{
+                width:180px;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <img src="{% static 'images/mpesa-logo.png' %}" alt="M-Pesa Logo" class="logo">
+
+        <h2>M-Pesa Express Payment</h2>
+
+        <p>Fast • Secure • Reliable</p>
+
+    </div>
+
+    <div class="content">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Phone Number</label>
+
+            <div class="input-box">
+                <i class="fas fa-mobile-alt"></i>
+
+                <input
+                    type="text"
+                    name="phone"
+                    placeholder="254712345678"
+                    required>
+            </div>
+
+            <label>Amount (KES)</label>
+
+            <div class="input-box">
+                <i class="fas fa-money-bill-wave"></i>
+
+                <input
+                    type="number"
+                    name="amount"
+                    value="100"
+                    readonly>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-lock"></i> Pay Now
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="footer">
+        Once you click <strong>Pay Now</strong>, an M-Pesa STK Push will be sent to your phone. Enter your M-Pesa PIN to complete the payment.
+    </div>
+
+</div>
+
+</body>
+</html>
