@@ -53,17 +53,18 @@ def delete(request,id):
     mycontact.delete()
     return redirect('/show')
 
-
-def edit(request,id):
+def edit(request, id):
     editappointment = get_object_or_404(contact, id = id)
-
-    if request.method == 'post':
-        editappointment.name = request.Post.get('name')
-        editappointment.email = request.Post.get('email')
-        editappointment.subject = request.Post.get('subject')
-        editappointment.message = request.Post.get('message')
+    
+    if request.method=='POST':
+        editappointment.name = request.POST.get('name')
+        editappointment.email = request.POST.get('email')
+        editappointment.subject = request.POST.get('subject')
+        editappointment.message = request.POST.get('message')
+        
         editappointment.save()
         return redirect('/show')
+    
     else:
         return render(request, 'edit.html', {'editappointment':editappointment})
 
